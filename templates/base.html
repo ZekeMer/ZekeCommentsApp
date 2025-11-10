@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Comment System{% endblock %}</title>
+</head>
+<body>
+    <h1>Simple Comment System</h1>
+    
+    <!-- Navigation -->
+    <nav>
+        <a href="{{ url_for('show_comments_advanced') }}">View Comments</a> |
+        <a href="{{ url_for('add_comment_advanced') }}">Add Comment</a>
+    </nav>
+    
+    <hr>
+    
+    <!-- Main content -->
+    {% block content %}{% endblock %}
+    
+    <!-- Display flash messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="background: yellow; padding: 10px;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

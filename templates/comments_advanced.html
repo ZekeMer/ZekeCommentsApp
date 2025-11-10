@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>All Comments (Safe HTML Allowed)</h2>
+    <form method="POST" action="{{ url_for('add_comment_advanced') }}">
+        <textarea name="comment_text" rows="4" cols="50" placeholder="Enter your comment..."></textarea>
+        <br>
+        <small>You can use: &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;li&gt;, etc.</small>
+        <br>
+        <button type="submit">Submit Comment</button>
+    </form>
+    <hr>
+    <h3>Previous Comments:</h3>
+    {% for comment in comments %}
+        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+            <!-- SAFE: Content was sanitized before storage -->
+            <p>{{ comment | safe }}</p>
+            <small>Comment #{{ loop.index }}</small>
+        </div>
+    {% else %}
+        <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+{% endblock %}

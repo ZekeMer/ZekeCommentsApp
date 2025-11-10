@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Comments - Comment System{% endblock %}
+
+{% block content %}
+    <h2>All Comments</h2>
+    <!-- Form to add new comments -->
+    <form method="POST" action="{{ url_for('add_comment') }}">
+        <textarea name="comment_text" rows="4" cols="50" placeholder="Enter your comment..."></textarea>
+        <br>
+        <button type="submit">Submit Comment</button>
+    </form>
+    <hr>
+    <!-- Display existing comments - THIS IS VULNERABLE! -->
+    <h3>Previous Comments:</h3>
+    {% for comment in comments %}
+        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+            <!-- UNSAFE: Directly output user content without sanitization -->
+            <!-- <p>{{ comment | safe }}</p> -->
+             <p>{{ comment }}</p> 
+            <small>Comment #{{ loop.index }}</small>
+        </div>
+    {% else %}
+        <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+{% endblock %}
